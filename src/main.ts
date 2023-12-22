@@ -9,7 +9,10 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   await db.$connect();
   app.useGlobalPipes(new ValidationPipe());
-  app.useGlobalInterceptors(new LogInterceptor())
+  app.useGlobalInterceptors(new LogInterceptor());
+  app.enableCors({
+    origin:['*']
+  });
   await app.listen(3000);
 }
 bootstrap();

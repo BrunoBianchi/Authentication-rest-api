@@ -8,9 +8,10 @@ generator client {
 }
 
 model User {
-  id          String  @id @default(auto()) @map("_id") @db.ObjectId
-  email       String
-  name        String
-  password    String
-  uid         String @default(uuid()) @unique
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  email    String
+  name     String
+  password String
+  role     Int    @default(1)
+  uid      String @unique @default(uuid())
 }

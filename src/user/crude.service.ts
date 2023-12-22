@@ -1,8 +1,14 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { db } from 'prisma/database';
+import { Roles } from 'src/decorators/role.decorator';
+import { Role } from 'src/enums/role.enum';
+import * as bcrypt from 'bcrypt'
+
 @Injectable()
 export class CrudeService {
-  async createUser(body: { name: string; email: string,password:string }) {
+  @Roles(Role.Admin)
+  async createUser(body: { name: string; email: string; password: string }) {
+    body.password = await bcrypt.hash(body.password, await bcrypt.genSalt())
     return await db.user.create({
       data: body,
     });
@@ -11,18 +17,22 @@ export class CrudeService {
   async readOne(id: string) {
     return await db.user.findFirst({
       where: {
-        uid: {
+        id: {
           equals: id,
         },
       },
     });
   }
 
+  @Roles(Role.Admin, Role.User)
   async listAll() {
     return await db.user.findMany();
   }
 
-  async updateOne(id: string, body: { name?: string; email?: string }) {
+  async updateOne(
+    id: string,
+    body: { name?: string; email?: string; role?: number },
+  ) {
     return await db.user.update({
       where: {
         uid: id,
@@ -30,7 +40,7 @@ export class CrudeService {
       data: body,
     });
   }
-
+  @Roles(Role.Admin)
   async deleteOne(id: string) {
     return await db.user.delete({
       where: {
@@ -39,12 +49,11 @@ export class CrudeService {
     });
   }
 
-  async exists(id:string) {
+  async exists(id: string) {
     return await db.user.count({
-      where:{
-        uid:id
-      }
-    })
-
-  } 
+      where: {
+        uid: id,
+      },
+    });
+  }
 }
