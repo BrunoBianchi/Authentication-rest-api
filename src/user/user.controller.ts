@@ -3,12 +3,8 @@ import {
   Controller,
   Delete,
   Get,
-  Header,
-  Headers,
-  Param,
   Patch,
   Post,
-  Put,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
@@ -25,7 +21,7 @@ import { AuthGuard } from 'src/guards/auth.guard';
 //Api para Crude
 
 //Definicao de nossa rota para /users
-@UseGuards(AuthGuard,RoleGuard)
+@UseGuards(AuthGuard, RoleGuard)
 @Controller('users')
 export class UserController {
   //Constructor para recebermos nossas funcoes do Services
@@ -42,7 +38,7 @@ export class UserController {
   }
 
   //Get para receber todos os usuarios GET: /users
-  @Roles(Role.Admin,Role.User)
+  @Roles(Role.Admin, Role.User)
   @Get()
   async read() {
     return await this.crude.listAll();

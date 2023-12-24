@@ -6,10 +6,10 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-// nos metodos podemos tambem adicionar rotas, neste caso, :id sera valido para qualquer rota apos /home
+  // nos metodos podemos tambem adicionar rotas, neste caso, :id sera valido para qualquer rota apos /home
   @Get(':id')
-  // localhost:3000/home/:id 
+  // localhost:3000/home/:id
   getHello(): string {
-    return 'oi'
+    return 'oi';
   }
 }
