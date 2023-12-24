@@ -1,73 +1,88 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# NEST JS - REST API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+REST API para criação de contas, login , update , e deleção
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Sumário
 
-## Description
+- [Descrição](#descrição)
+- [Tecnologias Utilizadas](#tecnologias-utilizadas)
+- [Pré-requisitos](#pré-requisitos)
+- [Configuração do Ambiente](#configuração-do-ambiente)
+- [Como Iniciar o Projeto](#como-iniciar-o-projeto)
+- [Exemplo de utilização do Projeto](#exemplo-de-utilizacao-do-projeto)
+- [Licença](#licença)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Installation
+## Descrição
 
-```bash
-$ npm install
-```
+Este Projeto visa a criação de uma simples api rest utilizando nest js para aprendizado. Foi escolhido este framework para que a api pudesse ser escalonada de maneira fácil e prática. Além disso, o uso do Prisma + MongoDB configura-se uma escolha muito comum atualmente, já quer a escolha de utilizar um banco de dados NON SQL configura-se à propósta dessa API de um projeto flexível.
 
-## Running the app
+## Tecnologias Utilizadas
 
-```bash
-# development
-$ npm run start
+- [NestJS](https://nestjs.com/) - Escolhido por ser um framework focado na criação de aplicações flexíveis e escalonáveis .
 
-# watch mode
-$ npm run start:dev
+- [Prisma](https://www.prisma.io/) - Prisma DB é um Tipo de ORM (Object-Relational Mapping) "Mapeamento objeto-relacional", que nós ajuda à aproximar o paradigma de aplicações orientadas a objetos ao paradigma do banco de dados relacional .
 
-# production mode
-$ npm run start:prod
-```
+- [JWT (JSON Web Tokens)](https://jwt.io/) - JWT foi utilizado para a autenticação, já que ele consegue de forma rápida e segura fazer criar tokens de autenticação referentes à uma palavra chave  .
 
-## Test
+## Pré-requisitos
+
+Liste todos os requisitos que os colaboradores ou usuários precisarão ter instalados para executar seu projeto.
+
+- Node.js
+- npm (ou yarn)
+- mongo DB
+
+## Configuração do Ambiente
+
+Para a configuração, antes de mais nada, precisa-se mudar as configurações referente ao banco de dados em .env:
 
 ```bash
-# unit tests
-$ npm run test
+# DATABASE_URL é a url para conexão do banco de dados MONGO_DB
+DATABASE_URL = " "
 
-# e2e tests
-$ npm run test:e2e
+# JWT_SECRET é uma STRING que pode ser escolhida,recomenda-se o uso de STRINGS com mais de 32 caracteres,contendo letras maiúsculas, minúsculas, números e caracteres espciais
 
-# test coverage
-$ npm run test:cov
+JWT_SECRET = " "
+ 
+ ```
+ Após configuração do .env, é preciso fazer a instação das dependências e seguir com o iniciamento do aplicativo:
+
+```bash
+# Comando para a instalação das dependências
+npm install
+ 
+# Comando para iniciar o aplicativo com watchdog habilitado
+npm run start:dev
+
+# Comando para build do projeto, esta build acontecerá na pastas ./dist
+
+npm run prod
+ ```
+
+## Exemplo de Utilizacao do Projeto
+
+Neste exemplo, será utilizado comandos via bash, porém qualquer tipo de http client conseguirá ser feito
+
+- [Register](#register)
+
+- [Login](#login)
+
+- [Me](#me)
+
+### Register
+```bash
+curl -X POST -H "Content-Type: application/json" -d '{"name": "example","email":"yourBestEmail@gmail.com", "password": "password123"}' http://localhost:3000/auth/register
+```
+### Login
+```bash
+curl -X POST -H "Content-Type: application/json" -d '{"email":"yourBestEmail@gmail.com", "password": "password123"}' http://localhost:3000/auth/login
 ```
 
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+### Me
+```bash
+curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer SEU_TOKEN_JWT" http://localhost:3000/auth/me
+```
+ 
+# Licença
+Este é o projeto [MIT licensed.](LICENSE)

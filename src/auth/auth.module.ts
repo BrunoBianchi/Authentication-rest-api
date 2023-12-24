@@ -7,7 +7,7 @@ import { AuthService } from './auth.service';
 @Module({
   imports: [
     JwtModule.register({
-      secret: '5C5TL@7oO::B,NF*immpq+P(vxd}s0#W8(-s4E/G&_>jX[1_MK',
+      secret: process.env.JWT_SECRET,
     }),
     forwardRef(() => UserModel),
   ],
